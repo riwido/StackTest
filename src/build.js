@@ -5,9 +5,9 @@ const path = require('path');
 
 module.exports = (devMode) => {
     const config = {
-        outdir: './dist',
+        outdir: './src/stacktest/static/',
         entryPoints: {
-            main: './front/main.jsx',
+            main: './src/webclient/main.jsx',
         },
         bundle: true,
         minify: !devMode,
@@ -23,7 +23,7 @@ module.exports = (devMode) => {
             // require('esbuild-sass-plugin').sassPlugin(),
             copyStaticFiles({
                 src: './static',
-                dest: './dist',
+                dest: './src/stacktest/static/',
             }),
         ],
         //loader: {

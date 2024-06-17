@@ -1,2 +1,9 @@
+# javascript
 node_modules
 dist
+src/stacktest/static
+
+
+# python
+*.egg-info
+*.pyc
