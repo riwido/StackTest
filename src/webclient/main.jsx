@@ -14,6 +14,9 @@ function WebSocketComponent() {
             console.log(JSON.stringify(event));
             setMessage(event.data);
         };
+        socket.onclose = (event) => {
+            console.log(`Server said bye: ${event.code}`);
+        };
         return () => socket.close();
     }, []);
     return (
