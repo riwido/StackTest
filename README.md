@@ -5,8 +5,7 @@
 * ~~serve fastapi as async function~~
 * ~~add websockets~~
 * ~~Send random words to client~~
-* CtrlC behavior for websocket disconnect
-* FastAPI native way to run parallel async function?
+* ~~CtrlC behavior for websocket disconnect~~
 * Same watch functionality without fastapi-cli?
 
 
