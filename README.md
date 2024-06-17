@@ -3,8 +3,11 @@
 * ~~Create fastapi app~~
 * ~~Button that pulls something from server~~
 * ~~serve fastapi as async function~~
-* add websockets
-* Send random words to client
+* ~~add websockets~~
+* ~~Send random words to client~~
+* CtrlC behavior for websocket disconnect
+* FastAPI native way to run parallel async function?
+* Same watch functionality without fastapi-cli?
 
 
 
