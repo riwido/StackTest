@@ -6,29 +6,27 @@
 * ~~add websockets~~
 * ~~Send random words to client~~
 * ~~CtrlC behavior for websocket disconnect~~
-* Same watch functionality without fastapi-cli?
+* ~~Same watch functionality without fastapi-cli?~~
+* add pre-commit
+* move js build script
+* add cli entrypoint
+* add separate normal/dev js build dirs.  normal checked in repo
 
 
+## Install
+pip install git+https://github.com/riwido/StackTest
 
-# Develop
+## Run
+python -m stacktest
 
-## JS Dependencies
-
+## Develop
+(virtual environment recommended)
+`pip install -r requirements-dev.txt`
 `npm install`
 
-## JS Environment
+python -m stacktest --dev
 
-In a separate terminal, run
-
-`npm run dev`
-
-
-## Python environment
-
-In a virtual environment, run `pip install -e .`
-pip install -r requirements-dev.txt
-
-## Python build
+## Build
 
 `npm run build`
 `python -m build`
