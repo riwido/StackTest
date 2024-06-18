@@ -5,7 +5,6 @@ import random
 import string
 import time
 from contextlib import asynccontextmanager
-then = time.time()
 
 from fastapi import FastAPI
 from fastapi import WebSocket
@@ -13,6 +12,8 @@ from fastapi import WebSocket
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException
 from starlette.websockets import WebSocketDisconnect
+
+then = time.time()
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -24,11 +25,10 @@ class SPAStaticFiles(StaticFiles):
         try:
             return await super().get_response(path, scope)
         except HTTPException as exc:
-            if ex.status_code == 404:
-                logger.critical(f"404: {path=}")
+            if exc.status_code == 404:
+                logger.warning(f"404: {path=}")
                 return await super().get_response("404.html", scope)
-            else:
-                raise exc
+            raise exc
 
 async def sleep_n_log():
     try:
@@ -40,14 +40,14 @@ async def sleep_n_log():
 
 
 @asynccontextmanager
-async def lifetime(app: FastAPI):
+async def my_app(app: FastAPI):
     logger.info(f"beginning of lifetime for {app=}")
     task = asyncio.create_task(sleep_n_log())
     yield
     task.cancel()
     logger.info("end of lifetime")
 
-app = FastAPI(lifespan=lifetime)
+app = FastAPI(lifespan=my_app)
 
 @app.get("/data")
 async def data():
@@ -66,5 +66,5 @@ async def ws(websocket: WebSocket):
         logger.info("Websocket has been disconnected")
 
 
-# this appears to need be last
+# todo: find out what name means
 app.mount("/", SPAStaticFiles(directory=static, html=True), name="server root")

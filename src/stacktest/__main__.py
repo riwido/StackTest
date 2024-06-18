@@ -1,51 +1,70 @@
-import asyncio
 import argparse
 import pathlib
 import uvicorn
 import sys
 import logging
 import subprocess
+from contextlib import contextmanager
 
 from uvicorn.supervisors import ChangeReload
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-asyncio
+CONFIG = dict(
+    app="stacktest.main:app",
+    log_level="warning",
+    port=5000,
+)
 
+CONFIG_DEV = dict(
+    log_level="debug",
+    reload=True,
+    reload_dirs=[str(pathlib.Path(__file__).parent)],
+)
+
+
+@contextmanager
+def npm_run_dev():
+    watcher = subprocess.Popen(
+        ["npm", "run", "dev"], stdout=sys.stdout, stderr=subprocess.STDOUT
+    )
+    # todo: error handling when npm doesn't exist or fails
+    yield
+    watcher.kill()
+
+
+def run_dev():
+    config = uvicorn.Config(**(CONFIG | CONFIG_DEV))  # type: ignore
+    logger.warning("Watching Enabled!!")
+    server = uvicorn.Server(config)
+
+    # https://github.com/encode/uvicorn/issues/1868
+    # code from gh encode/uvicorn uvicorn/main.py
+    sock = config.bind_socket()
+    with npm_run_dev():
+        ChangeReload(config, target=server.run, sockets=[sock]).run()
+
+
+def run():
+    config = uvicorn.Config(**CONFIG)  # type: ignore
+    server = uvicorn.Server(config)
+    server.run()
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--dev", action="store_true", help="Run in dev mode")
     args = parser.parse_args()
-    logger.info(f"Args: {args}")
+
     if args.dev:
-        watcher = subprocess.Popen(['npm', 'run', 'dev'], stdout=sys.stdout, stderr=subprocess.STDOUT)
-        config = uvicorn.Config(
-            "stacktest.main:app",
-            port=5000,
-            log_level="debug",
-            reload=True,
-            reload_dirs=[str(pathlib.Path(__file__).parent)],
-        )
-        logger.warning("Watching Enabled!!")
-        server = uvicorn.Server(config)
-        sock = config.bind_socket()
-        ChangeReload(config, target=server.run, sockets=[sock]).run()
-        watcher.kill()
+        run_dev()
     else:
-        config = uvicorn.Config(
-            "stacktest.main:app",
-            port=5000,
-            log_level="info",
-        )
-        server = uvicorn.Server(config)
-        server.run()
+        run()
 
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("Closing app")
+        logger.warning("KeyboardInterrupt while running main()")
