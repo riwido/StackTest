@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import os
 import pathlib
 import random
 import string
@@ -18,6 +19,10 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 static = pathlib.Path(__file__).parent / "static"
+
+DEV_MODE = bool(os.getenv("STACKTEST_DEBUG"))
+
+logger.info(f"{DEV_MODE=}")
 
 
 class SPAStaticFiles(StaticFiles):

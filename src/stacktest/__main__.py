@@ -19,6 +19,7 @@ CONFIG = dict(
 
 CONFIG_DEV = dict(
     log_level="debug",
+    env_file=".devenv",
     reload=True,
     reload_dirs=[str(pathlib.Path(__file__).parent)],
 )
