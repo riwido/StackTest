@@ -2,8 +2,9 @@
 const copyStaticFiles = require('esbuild-copy-static-files');
 const esbuild = require('esbuild');
 const path = require('path');
+const devMode = process.argv.includes('--dev');
 
-module.exports = (devMode) => {
+function buildPackage() {
     const config = {
         outdir: './src/stacktest/static/',
         entryPoints: {
@@ -42,7 +43,7 @@ module.exports = (devMode) => {
     } else {
         esbuild.build(config).catch(console.error);
     }
-};
+}
 
 function statsPlugin() {
     return {
@@ -78,3 +79,6 @@ function statsPlugin() {
         },
     };
 }
+
+
+buildPackage()

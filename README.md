@@ -8,7 +8,7 @@
 * ~~CtrlC behavior for websocket disconnect~~
 * ~~Same watch functionality without fastapi-cli?~~
 * ~~add pre-commit~~
-* move js build script
+* ~~move js build script~~
 * add cli entrypoint
 * add separate normal/dev js build dirs.  normal checked in repo
 * tests for 3.10, 3.11 & 3.12
