@@ -4,7 +4,7 @@ import logging
 import random
 import string
 import time
-
+from contextlib import asynccontextmanager
 then = time.time()
 
 from fastapi import FastAPI
@@ -47,12 +47,29 @@ class SPAStaticFiles(StaticFiles):
             else:
                 raise ex
 
+async def sleep_n_log():
+    try:
+        while True:
+            logger.info("Sleeping process doing something")
+            await asyncio.sleep(5)
+    except asyncio.CancelledError:
+        logger.warning("Parallel sleeping task has been cancelled")
 
-app = FastAPI()
 
+@asynccontextmanager
+async def lifetime(app: FastAPI):
+    logger.info("beginning of timetime")
+    task = asyncio.create_task(sleep_n_log())
+    yield
+    task.cancel()
+    await task
+    logger.info("end of timetime")
+
+app = FastAPI(lifespan=lifetime)
 
 @app.get("/data")
 async def data():
+
     return dict(data=f"Server Uptime: {time.time() - then:.02f} seconds")
 
 
