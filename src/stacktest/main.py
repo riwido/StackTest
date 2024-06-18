@@ -1,6 +1,6 @@
 import asyncio
-import pathlib
 import logging
+import pathlib
 import random
 import string
 import time
@@ -8,7 +8,6 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi import WebSocket
-
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException
 from starlette.websockets import WebSocketDisconnect
@@ -20,6 +19,7 @@ logging.basicConfig(level=logging.INFO)
 
 static = pathlib.Path(__file__).parent / "static"
 
+
 class SPAStaticFiles(StaticFiles):
     async def get_response(self, path: str, scope):
         try:
@@ -29,6 +29,7 @@ class SPAStaticFiles(StaticFiles):
                 logger.warning(f"404: {path=}")
                 return await super().get_response("404.html", scope)
             raise exc
+
 
 async def sleep_n_log():
     try:
@@ -47,11 +48,14 @@ async def my_app(app: FastAPI):
     task.cancel()
     logger.info("end of lifetime")
 
+
 app = FastAPI(lifespan=my_app)
+
 
 @app.get("/data")
 async def data():
     return dict(data=f"Server Uptime: {time.time() - then:.02f} seconds")
+
 
 @app.websocket("/ws")
 async def ws(websocket: WebSocket):

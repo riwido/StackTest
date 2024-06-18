@@ -1,11 +1,11 @@
 import argparse
-import pathlib
-import uvicorn
-import sys
 import logging
+import pathlib
 import subprocess
+import sys
 from contextlib import contextmanager
 
+import uvicorn
 from uvicorn.supervisors import ChangeReload
 
 logger = logging.getLogger(__name__)
