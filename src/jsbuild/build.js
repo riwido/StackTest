@@ -6,7 +6,7 @@ const devMode = process.argv.includes('--dev');
 
 function buildPackage() {
     const config = {
-        outdir: './src/stacktest/static/',
+        outdir: `./src/stacktest/static${devMode ? '-dev' : ''}/`,
         entryPoints: {
             main: './src/webclient/main.jsx',
         },
@@ -80,5 +80,4 @@ function statsPlugin() {
     };
 }
 
-
-buildPackage()
+buildPackage();

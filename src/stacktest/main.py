@@ -18,11 +18,14 @@ then = time.time()
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-static = pathlib.Path(__file__).parent / "static"
-
 DEV_MODE = bool(os.getenv("STACKTEST_DEBUG"))
 
 logger.info(f"{DEV_MODE=}")
+
+if DEV_MODE:
+    static = pathlib.Path(__file__).parent / "static-dev"
+else:
+    static = pathlib.Path(__file__).parent / "static"
 
 
 class SPAStaticFiles(StaticFiles):

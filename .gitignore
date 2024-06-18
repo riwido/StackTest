@@ -1,7 +1,7 @@
 # javascript
 node_modules
 dist
-src/stacktest/static
+src/stacktest/static-dev
 
 
 # python
