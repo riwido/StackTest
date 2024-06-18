@@ -7,7 +7,7 @@
 * ~~Send random words to client~~
 * ~~CtrlC behavior for websocket disconnect~~
 * ~~Same watch functionality without fastapi-cli?~~
-* add pre-commit
+* ~~add pre-commit~~
 * move js build script
 * add cli entrypoint
 * add separate normal/dev js build dirs.  normal checked in repo
