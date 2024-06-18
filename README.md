@@ -21,7 +21,9 @@ python -m stacktest
 
 ## Develop
 (virtual environment recommended)
+
 `pip install -r requirements-dev.txt`
+
 `npm install`
 
 python -m stacktest --dev
@@ -29,4 +31,5 @@ python -m stacktest --dev
 ## Build
 
 `npm run build`
+
 `python -m build`
