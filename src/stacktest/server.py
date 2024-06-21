@@ -10,7 +10,6 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi import WebSocket
 from fastapi.staticfiles import StaticFiles
-from starlette.exceptions import HTTPException
 from starlette.websockets import WebSocketDisconnect
 
 then = time.time()
@@ -26,17 +25,6 @@ if DEV_MODE:
     static = pathlib.Path(__file__).parent / "static-dev"
 else:
     static = pathlib.Path(__file__).parent / "static"
-
-
-class SPAStaticFiles(StaticFiles):
-    async def get_response(self, path: str, scope):
-        try:
-            return await super().get_response(path, scope)
-        except HTTPException as exc:
-            if exc.status_code == 404:
-                logger.warning(f"404: {path=}")
-                return await super().get_response("404.html", scope)
-            raise exc
 
 
 async def sleep_n_log():
@@ -74,9 +62,9 @@ async def ws(websocket: WebSocket):
                 "".join(random.choice(string.ascii_uppercase) for _ in range(10))
             )
             await asyncio.sleep(5)
-    except WebSocketDisconnect:
+    except WebSocketDisconnect:  # pragma: no cover
         logger.info("Websocket has been disconnected")
 
 
 # todo: find out what name means
-app.mount("/", SPAStaticFiles(directory=static, html=True), name="server root")
+app.mount("/", StaticFiles(directory=static, html=True), name="server root")

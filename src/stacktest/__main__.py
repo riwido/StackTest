@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 CONFIG = dict(
-    app="stacktest.main:app",
+    app="stacktest.server:app",
     log_level="warning",
     port=5000,
 )
