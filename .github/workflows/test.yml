@@ -30,5 +30,10 @@ jobs:
       - name: Install environment
         run: pdm install
 
+      - name: Activate environment
+        run: |
+          . .venv/bin/activate
+          echo PATH=$PATH >> $GITHUB_ENV
+
       - name: Run pytest
-        run: python -m pytest
+        run: pytest
