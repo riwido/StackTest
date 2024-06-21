@@ -1,4 +1,5 @@
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/riwido/StackTest/main.svg)](https://results.pre-commit.ci/latest/github/riwido/StackTest/main)
+[![build status](https://github.com/riwido/StackTest/actions/workflows/test.yml/badge.svg)](https://github.com/riwido/StackTest/actions/workflows/test.yml)
 
 # TODO
 * ~~Create react app~~
@@ -12,9 +13,9 @@
 * ~~add pre-commit~~
 * ~~move js build script~~
 * ~~add separate normal/dev js build dirs.  normal checked in repo~~
-* tests for 3.10, 3.11 & 3.12
+* ~~tests for 3.10, 3.11 & 3.12~~
+* ~~add test workflow~~
 * js test
-* add test workflow
 * add cli entrypoint
 
 
