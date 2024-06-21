@@ -3,7 +3,9 @@ node_modules
 dist
 src/stacktest/static-dev
 
-
 # python
 *.egg-info
 *.pyc
+
+# pdm
+.pdm-python

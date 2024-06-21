@@ -1,14 +1,15 @@
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 [project]
 name = "stacktest"
 version = "0.0.4"
 authors = [
-  { name="Richard Dodson", email="richard.w.dodson@gmail.com" },
+    { name="Richard Dodson", email="richard.w.dodson@gmail.com" },
+    {name = "Richard", email = "richard.w.dodson@gmail.com"},
 ]
-description = "An app that uses fastapi & react"
+description = "This tests the stack"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -25,12 +26,13 @@ dependencies = [
     "typing_extensions==4.12.2",
     "uvicorn==0.30.1",
     "websockets==12.0",
-    ]
+]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+license = {text = "MIT"}
 
 [tool.setuptools.packages.find]
 where=["src"]
@@ -38,5 +40,15 @@ where=["src"]
 [tool.setuptools.package-data]
 stacktest = ["static/index.html", "static/main.js"]
 
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "pytest>=8.2.2",
+    "coverage>=7.5.3",
+    "httpx>=0.27.0",
+]
 [project.urls]
 Homepage = "https://github.com/riwido/StackTest"
