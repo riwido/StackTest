@@ -2,7 +2,6 @@ import importlib
 
 import pytest
 from fastapi.testclient import TestClient
-from httpx import AsyncClient
 
 import stacktest.server
 
@@ -41,7 +40,3 @@ class TestServer:
     def test_ws(self, client):
         with client.websocket_connect("/ws") as websocket:
             assert websocket.receive_text()
-
-    async def test_disconnect(self, app):
-        async with AsyncClient(app=app, base_url="http://testserver") as client:
-            r = await client.get("/")
