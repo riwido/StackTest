@@ -2,7 +2,8 @@
     "name": "stacktest",
     "scripts": {
         "build": "node src/jsbuild/build.js",
-        "dev": "node src/jsbuild/build.js --dev"
+        "dev": "node src/jsbuild/build.js --dev",
+        "watch": "node src/jsbuild/build.js --watch"
     },
     "dependencies": {
         "react": "^18.3.1",

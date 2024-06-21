@@ -2,7 +2,9 @@
 const copyStaticFiles = require('esbuild-copy-static-files');
 const esbuild = require('esbuild');
 const path = require('path');
-const devMode = process.argv.includes('--dev');
+const watchMode = process.argv.includes('--watch');
+const devMode = process.argv.includes('--dev') || watchMode;
+
 
 function buildPackage() {
     const outDir = `./src/stacktest/static${devMode ? '-dev' : ''}`
@@ -36,7 +38,7 @@ function buildPackage() {
         },
     };
 
-    if (devMode) {
+    if (watchMode) {
         esbuild
             .context(config)
             .then((ctx) => ctx.watch())

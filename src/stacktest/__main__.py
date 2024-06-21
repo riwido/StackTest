@@ -28,7 +28,7 @@ CONFIG_DEV = dict(
 @contextmanager
 def npm_run_dev():
     watcher = subprocess.Popen(
-        ["npm", "run", "dev"], stdout=sys.stdout, stderr=subprocess.STDOUT
+        ["npm", "run", "watch"], stdout=sys.stdout, stderr=subprocess.STDOUT
     )
     # todo: error handling when npm doesn't exist or fails
     yield

@@ -17,10 +17,10 @@
 
 
 ## Install
-pip install git+https://github.com/riwido/StackTest
+`pip install git+https://github.com/riwido/StackTest`
 
 ## Run
-python -m stacktest
+`python -m stacktest`
 
 ## Develop
 (virtual environment recommended)
