@@ -5,8 +5,9 @@ const path = require('path');
 const devMode = process.argv.includes('--dev');
 
 function buildPackage() {
+    const outDir = `./src/stacktest/static${devMode ? '-dev' : ''}`
     const config = {
-        outdir: `./src/stacktest/static${devMode ? '-dev' : ''}/`,
+        outdir: outDir,
         entryPoints: {
             main: './src/webclient/main.jsx',
         },
@@ -24,7 +25,7 @@ function buildPackage() {
             // require('esbuild-sass-plugin').sassPlugin(),
             copyStaticFiles({
                 src: './static',
-                dest: './src/stacktest/static/',
+                dest: outDir,
             }),
         ],
         //loader: {
