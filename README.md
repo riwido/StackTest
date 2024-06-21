@@ -1,3 +1,5 @@
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/riwido/StackTest/main.svg)](https://results.pre-commit.ci/latest/github/riwido/StackTest/main)
+
 # TODO
 * ~~Create react app~~
 * ~~Create fastapi app~~
